@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
+
+group 'com.sophos'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 11
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceSets {
+    test {
+        java {
+            srcDir file('src/test/java')
+        }
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+ext {
+    karateCoreVersion = '1.4.0'
+    karateApacheVersion = '0.9.6'
+    cucumberVersion = '5.7.5'
+}
+
+dependencies {
+
+    implementation group: 'com.intuit.karate', name: 'karate-core', version: "$rootProject.ext.karateCoreVersion"
+    implementation group: 'com.intuit.karate', name: 'karate-apache', version: "$rootProject.ext.karateApacheVersion"
+    implementation group: 'com.intuit.karate', name: 'karate-junit5', version: "$rootProject.ext.karateCoreVersion"
+    implementation group: 'net.masterthought', name: 'cucumber-reporting', version: "$rootProject.ext.cucumberVersion"
+
+}
+
+test {
+    include '**/*ExampleApi*'
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+    systemProperty "file.encoding", "UTF-8"
+    testLogging.showStandardStreams = true
+}
+
+task karateDebug(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.intuit.karate.cli.Main'
+}
