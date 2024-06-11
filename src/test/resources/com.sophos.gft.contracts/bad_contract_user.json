@@ -1,0 +1,7 @@
+{
+  "id": "#number? _ >3",
+  "name": "#number",
+  "gender": "#regex [\\w]{4,6}",
+  "email": "#regex ^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+${4,60}",
+  "status": "#string"
+}

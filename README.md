@@ -1,2 +1,2 @@
 # ironmate_karate
-Proyecto base para empezara a utomatizar apis con karate
+Proyecto base para empezar a automatizar apis usando Karate Framework
